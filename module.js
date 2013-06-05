@@ -48,7 +48,7 @@ function resolve(ids, refUri) {                              //参数ids 一定�
 function use(uris, callback) {
   isArray(uris) || (uris = [uris])                              //如果uis维数组，直接使用uris，否则uris为数字或字符串，则将转为数组赋值给uris
                                                                 //调用此方法的时候uris里面的路径已经被解析成完整的路径了
-  load(uris, function() {
+  load(uris, function() {										//加载完成之后对外暴露所有模块提供的接口
     var exports = []
 
     for (var i = 0; i < uris.length; i++) {
@@ -246,18 +246,18 @@ function exec(mod) {                                                        //�
 
   mod.status = STATUS_EXECUTING                                               //设置状态为这个module正在被执行
 
-
-  function resolveInThisContext(id) {
+																		
+  function resolveInThisContext(id) {										  ////使用模块系统内部的路径解析机制来解析并返回模块路径。该函数不会加载模块，只返回解析后的绝对路径
     return resolve(id, mod.uri)
   }
 
-  function require(id) {                                                               //获取对应id模块的接口
+  function require(id) {                                                               //获取此模块所依赖的模块的接口
     return getExports(cachedModules[resolveInThisContext(id)])
   }
 
-  require.resolve = resolveInThisContext                                                 //返回路径
+  require.resolve = resolveInThisContext                                                 //使用模块系统内部的路径解析机制来解析并返回模块路径。该函数不会加载模块，只返回解析后的绝对路径
 
-  require.async = function(ids, callback) {                                             //异步加载
+  require.async = function(ids, callback) {                                             //在模块中异步加载依赖的模块
     use(resolveInThisContext(ids), callback)
     return require
   }
@@ -266,7 +266,7 @@ function exec(mod) {                                                        //�
   var factory = mod.factory                                                     //获取这个Module实例的factory函数
 
   var exports = isFunction(factory) ?                                           //如果factory是函数，执行此函数，并将return 赋给exports，如果不是function，直接将factory赋给exports
-      factory(require, mod.exports = {}, mod) :
+      factory(require, mod.exports = {}, mod) :									//exports 仅仅是 module.exports 的一个引用。在 factory 内部给 exports 重新赋值时，并不会改变 module.exports 的值。因此给 exports 赋值是无效的，不能用来更改模块接口。
       factory
 
   mod.exports = exports === undefined ? mod.exports : exports
