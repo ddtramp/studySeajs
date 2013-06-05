@@ -159,7 +159,7 @@ function fetch(uri, callback) {                                            //获
   if (!data.requested) {                                                 //如果不存在 !data.requested 执行 request()  注意line 134，可能是设置 data.requested
     request(data.requestUri, onRequested, charset)                       //请求完事后执行回调函数
   }
-
+                                                                       //加载完成之后，执行define()函数
   function onRequested() {                                             //request()的callback()
     delete fetchingList[requestUri]                                    //删除正在请求的module的信息  即删除fetchingList的 requestUri属性
     fetchedList[requestUri] = true                                     //将请求到的module的信息存    即添加fetchedList的 requestUri属性为 ture
