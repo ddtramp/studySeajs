@@ -57,7 +57,7 @@ function use(uris, callback) {
 
     if (callback) {
       callback.apply(global, exports)                         //gloobal 全局对象指向windows 将exports传给callback
-    }
+    }                                                         //作用域 windows全局
   })
 }
 
