@@ -166,7 +166,7 @@ function fetch(uri, callback) {                                            //获
 
     // Save meta data of anonymous module
     if (anonymousModuleData) {                                          //如果有 anonymousModuleData  如果不存在，说明在模块请求到之后，程序已经自动解析到了uri，并进行了储存
-      save(uri, anonymousModuleData)                                    //将此module和对应的uri储存到cachedModules中
+      save(uri, anonymousModuleData)                                    //将此module和对应的uri储存到cachedModules中,说明define()没有正确解析到uri
       anonymousModuleData = undefined                                   //将anonymousModuleData设置为undefined
     }
 
