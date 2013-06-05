@@ -47,7 +47,7 @@ function resolve(ids, refUri) {                              //参数ids 一定�
 
 function use(uris, callback) {
   isArray(uris) || (uris = [uris])                              //如果uis维数组，直接使用uris，否则uris为数字或字符串，则将转为数组赋值给uris
-
+                                                                //调用此方法的时候uris里面的路径已经被解析成完整的路径了
   load(uris, function() {
     var exports = []
 
