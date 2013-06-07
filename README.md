@@ -10,7 +10,8 @@
 	  里面添加了代码，应用seajs模块定义规范和没有冲突的设置
 	  所有模块都是异步加载的   
 	  如果seajs之后还有其他模块使用到了jquery框架，不能保证jquery已经加载完成
-		line 9578	// Expose jQuery to the global object
+		line 9578	
+					// Expose jQuery to the global object
 					window.jQuery = window.$ = jQuery;
 
 					// Expose jQuery as an AMD module, but only for AMD loaders that
